@@ -1,10 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const console = require('console');
+const { usersRoutes } = require('./routes/users');
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
+
+app.use(usersRoutes);
 
 app.get('', (req, res) => { res.send('Hello World'); });
 
