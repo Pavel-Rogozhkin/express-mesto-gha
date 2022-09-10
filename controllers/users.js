@@ -42,8 +42,25 @@ const getUserById = async (req, res) => {
   }
 };
 
-const updateMainUser = (req, res) => {
-  res.send(req.body);
+const updateMainUser = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.user._id, {
+      name: req.body.name,
+      about: req.body.about,
+    }, {
+      new: true,
+      runValidators: true,
+    });
+    if (!user) {
+      return res.status(404).send({ message: 'Пользователь с указанным ID не найден' });
+    }
+    return res.status(200).send(user);
+  } catch (e) {
+    if (e.name === 'ValidationError') {
+      return res.status(400).send({ message: 'Переданы некорректные данные при обновлении профиля', ...e });
+    }
+    return res.status(500).send({ message: 'Возникла ошибка на сервере', ...e });
+  }
 };
 
 const updateMainUserAvatar = (req, res) => {
