@@ -40,13 +40,23 @@ const deleteCardById = async (req, res) => {
   }
 };
 
-const cardLikeById = (req, res) => {
-  const like = Card.findByIdAndUpdate(
-    req.params.cardId,
-    { $addToSet: { likes: req.user._id } },
-    { new: true },
-  );
-  return res.status(200).send(like);
+const cardLikeById = async (req, res) => {
+  try {
+    const like = await Card.findByIdAndUpdate(
+      req.params.cardId,
+      { $addToSet: { likes: req.user._id } },
+      { new: true },
+    );
+    if (!like) {
+      return res.status(404).send({ message: 'Карточка с указанным ID не найдена' });
+    }
+    return res.status(200).send(like);
+  } catch (e) {
+    if (e.name === 'CastError') {
+      return res.status(400).send({ message: 'Переданы некорректные данные для постановки/снятии лайка', ...e });
+    }
+    return res.status(500).send({ message: 'Возникла ошибка на сервере', ...e });
+  }
 };
 
 const cardDislikeById = (req, res) => {
