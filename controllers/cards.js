@@ -9,9 +9,16 @@ const getCards = async (req, res) => {
   }
 };
 
-const createCard = (req, res) => {
-  const card = new Card({ owner: req.user._id, ...req.body }).save();
-  return res.status(200).send(card);
+const createCard = async (req, res) => {
+  try {
+    const card = await new Card({ owner: req.user._id, ...req.body }).save();
+    return res.status(200).send(card);
+  } catch (e) {
+    if (e.name === 'ValidationError') {
+      return res.status(400).send({ message: 'Переданы некорректные данные при создании карточки', ...e });
+    }
+    return res.status(500).send({ message: 'Возникла ошибка на сервере', ...e });
+  }
 };
 
 const deleteCardById = (req, res) => {
