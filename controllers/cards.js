@@ -1,6 +1,20 @@
-const console = require('console');
+const Card = require('../models/card');
 
-module.exports.createCard = (req, res) => {
-  console.log(req.user._id); // _id станет доступен
-  console.log(res);
+const getCards = (req, res) => {
+  res.send(req.body);
+};
+
+const createCard = (req, res) => {
+  const card = new Card({ owner: req.user._id, ...req.body }).save();
+  return res.status(200).send(card);
+};
+
+const deleteCardById = (req, res) => {
+  res.send(req.body);
+};
+
+module.exports = {
+  getCards,
+  createCard,
+  deleteCardById,
 };
