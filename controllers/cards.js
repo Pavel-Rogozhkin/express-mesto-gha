@@ -13,8 +13,18 @@ const deleteCardById = (req, res) => {
   res.send(req.body);
 };
 
+const cardLikeById = (req, res) => {
+  res.send(req.body);
+};
+
+const cardDislikeById = (req, res) => {
+  res.send(req.body);
+};
+
 module.exports = {
   getCards,
   createCard,
   deleteCardById,
+  cardLikeById,
+  cardDislikeById,
 };
