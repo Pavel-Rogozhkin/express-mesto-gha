@@ -1,6 +1,6 @@
 const User = require('../models/user');
 
-const createUser = async (req, res) => {
+const createNewUser = async (req, res) => {
   try {
     const newUser = await new User({
       name: req.body.name,
@@ -24,8 +24,18 @@ const getUserById = (req, res) => {
   res.send(req.body);
 };
 
+const updateMainUser = (req, res) => {
+  res.send(req.body);
+};
+
+const updateMainUserAvatar = (req, res) => {
+  res.send(req.body);
+};
+
 module.exports = {
-  createUser,
+  createNewUser,
   getUser,
   getUserById,
+  updateMainUser,
+  updateMainUserAvatar,
 };
