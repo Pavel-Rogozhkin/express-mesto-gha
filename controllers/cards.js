@@ -59,13 +59,23 @@ const cardLikeById = async (req, res) => {
   }
 };
 
-const cardDislikeById = (req, res) => {
-  const dislike = Card.findByIdAndUpdate(
-    req.params.cardId,
-    { $pull: { likes: req.user._id } },
-    { new: true },
-  );
-  return res.status(200).send(dislike);
+const cardDislikeById = async (req, res) => {
+  try {
+    const dislike = await Card.findByIdAndUpdate(
+      req.params.cardId,
+      { $pull: { likes: req.user._id } },
+      { new: true },
+    );
+    if (!dislike) {
+      return res.status(404).send({ message: 'Карточка с указанным ID не найдена' });
+    }
+    return res.status(200).send(dislike);
+  } catch (e) {
+    if (e.name === 'CastError') {
+      return res.status(400).send({ message: 'Переданы некорректные данные для постановки/снятии лайка', ...e });
+    }
+    return res.status(500).send({ message: 'Возникла ошибка на сервере', ...e });
+  }
 };
 
 module.exports = {
