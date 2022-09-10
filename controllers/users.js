@@ -1,20 +1,18 @@
 const User = require('../models/user');
 
-// const createUser = (req, res) => {
-//   console.log(req.body);
-//   res.send(req.body);
-// };
-
 const createUser = async (req, res) => {
   try {
-    const user = await new User(req.body).save();
-
-    return res.status(200).send(user);
+    const newUser = await new User({
+      name: req.body.name,
+      about: req.body.about,
+      avatar: req.body.avatar,
+    }).save();
+    return res.status(200).send(newUser);
   } catch (e) {
     if (e.name === 'ValidationError') {
-      return res.status(400).send({ message: 'Переданы неккоректные данные', ...e });
+      return res.status(400).send({ message: 'Переданы неккоректные данные в запросе', ...e });
     }
-    return res.status(500).send({ message: 'Произошла ошибка на сервере', ...e });
+    return res.status(500).send({ message: 'Произошла ошибка на сервере...', ...e });
   }
 };
 

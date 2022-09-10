@@ -8,8 +8,8 @@ const {
 
 const usersRoutes = express.Router();
 
+usersRoutes.post('/users', express.json(), createUser);
 usersRoutes.get('/users', express.json(), getUser);
 usersRoutes.get('/users/:userId', express.json(), getUserById);
-usersRoutes.post('/users', express.json(), createUser);
 
 module.exports = { usersRoutes };
