@@ -32,7 +32,6 @@ const getUserById = async (req, res) => {
     if (!user) {
       return res.status(404).send({ message: 'Пользователь по указанному ID не найден' });
     }
-
     return res.status(200).send(user);
   } catch (e) {
     if (e.name === 'CastError') {
@@ -73,7 +72,6 @@ const updateMainUserAvatar = async (req, res) => {
     if (!user) {
       return res.status(404).send({ message: 'Пользователь с указанным ID не найден' });
     }
-
     return res.status(200).send(user);
   } catch (e) {
     if (e.name === 'ValidationError') {

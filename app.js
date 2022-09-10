@@ -14,7 +14,6 @@ app.use((req, res, next) => {
   };
   next();
 });
-
 app.use(usersRoutes);
 app.use(cardsRoutes);
 app.use((req, res) => {
@@ -26,7 +25,6 @@ async function server() {
     useNewUrlParser: true,
     useUnifiedTopology: false,
   });
-
   await app.listen(PORT, () => {
     console.log(`Server starting on port: ${PORT}`);
   });
