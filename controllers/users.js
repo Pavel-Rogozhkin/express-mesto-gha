@@ -1,5 +1,14 @@
 const User = require('../models/user');
 
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.status(200).send(users);
+  } catch (e) {
+    res.status(500).send({ message: 'Возникла ошибка на сервере...', ...e });
+  }
+};
+
 const createNewUser = async (req, res) => {
   try {
     const newUser = await new User({
@@ -10,14 +19,10 @@ const createNewUser = async (req, res) => {
     return res.status(200).send(newUser);
   } catch (e) {
     if (e.name === 'ValidationError') {
-      return res.status(400).send({ message: 'Переданы неккоректные данные в запросе', ...e });
+      return res.status(400).send({ message: 'Переданы некорректные данные в запросе', ...e });
     }
-    return res.status(500).send({ message: 'Произошла ошибка на сервере...', ...e });
+    return res.status(500).send({ message: 'Возникла ошибка на сервере...', ...e });
   }
-};
-
-const getUser = (req, res) => {
-  res.send(req.body);
 };
 
 const getUserById = (req, res) => {
@@ -34,7 +39,7 @@ const updateMainUserAvatar = (req, res) => {
 
 module.exports = {
   createNewUser,
-  getUser,
+  getUsers,
   getUserById,
   updateMainUser,
   updateMainUserAvatar,
