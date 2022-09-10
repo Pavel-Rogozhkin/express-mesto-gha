@@ -7,6 +7,13 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
+app.use((req, res, next) => {
+  req.user = {
+    _id: '631c536b7c53b56cea88d2d1',
+  };
+  next();
+});
+
 app.use(usersRoutes);
 
 app.get('', (req, res) => { res.send('Hello World'); });
