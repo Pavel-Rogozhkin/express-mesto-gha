@@ -14,11 +14,21 @@ const deleteCardById = (req, res) => {
 };
 
 const cardLikeById = (req, res) => {
-  res.send(req.body);
+  const like = Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $addToSet: { likes: req.user._id } },
+    { new: true },
+  );
+  return res.status(200).send(like);
 };
 
 const cardDislikeById = (req, res) => {
-  res.send(req.body);
+  const dislike = Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $pull: { likes: req.user._id } }, // убрать _id из массива
+    { new: true },
+  );
+  return res.status(200).send(dislike);
 };
 
 module.exports = {
