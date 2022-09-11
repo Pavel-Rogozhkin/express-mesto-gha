@@ -10,10 +10,10 @@ const {
 
 const cardsRoutes = express.Router();
 
-cardsRoutes.get('/cards', express.json(), getCards);
-cardsRoutes.post('/cards', express.json(), createCard);
-cardsRoutes.delete('/cards/:cardId', express.json(), deleteCardById);
-cardsRoutes.put('/cards/:cardId/likes', express.json(), cardLikeById);
-cardsRoutes.delete('/cards/:cardId/likes', express.json(), cardDislikeById);
+cardsRoutes.get('/cards', getCards);
+cardsRoutes.post('/cards', createCard);
+cardsRoutes.delete('/cards/:cardId', deleteCardById);
+cardsRoutes.put('/cards/:cardId/likes', cardLikeById);
+cardsRoutes.delete('/cards/:cardId/likes', cardDislikeById);
 
 module.exports = { cardsRoutes };

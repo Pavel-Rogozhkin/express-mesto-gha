@@ -10,10 +10,10 @@ const {
 
 const usersRoutes = express.Router();
 
-usersRoutes.post('/users', express.json(), createNewUser);
-usersRoutes.get('/users', express.json(), getUsers);
-usersRoutes.get('/users/:userId', express.json(), getUserById);
-usersRoutes.patch('/users/me', express.json(), updateMainUser);
-usersRoutes.patch('/users/me/avatar', express.json(), updateMainUserAvatar);
+usersRoutes.post('/users', createNewUser);
+usersRoutes.get('/users', getUsers);
+usersRoutes.get('/users/:userId', getUserById);
+usersRoutes.patch('/users/me', updateMainUser);
+usersRoutes.patch('/users/me/avatar', updateMainUserAvatar);
 
 module.exports = { usersRoutes };
