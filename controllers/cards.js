@@ -9,7 +9,7 @@ const getCards = async (req, res) => {
     const cards = await Card.find({});
     return res.send(cards);
   } catch (e) {
-    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере', ...e });
+    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
   }
 };
 
@@ -22,9 +22,9 @@ const createCard = async (req, res) => {
     return res.send(card);
   } catch (e) {
     if (e.name === 'ValidationError') {
-      return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при создании карточки', ...e });
+      return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при создании карточки' });
     }
-    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере', ...e });
+    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
   }
 };
 
@@ -38,9 +38,9 @@ const deleteCardById = async (req, res) => {
     return res.send({ message: 'Карточка была удалена' });
   } catch (e) {
     if (e.name === 'CastError') {
-      return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при удалении карточки', ...e });
+      return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при удалении карточки' });
     }
-    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере', ...e });
+    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
   }
 };
 
@@ -57,9 +57,9 @@ const cardLikeById = async (req, res) => {
     return res.send(like);
   } catch (e) {
     if (e.name === 'CastError') {
-      return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные для постановки/снятии лайка', ...e });
+      return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные для постановки/снятии лайка' });
     }
-    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере', ...e });
+    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
   }
 };
 
@@ -76,9 +76,9 @@ const cardDislikeById = async (req, res) => {
     return res.send(dislike);
   } catch (e) {
     if (e.name === 'CastError') {
-      return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные для постановки/снятии лайка', ...e });
+      return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные для постановки/снятии лайка' });
     }
-    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере', ...e });
+    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
   }
 };
 

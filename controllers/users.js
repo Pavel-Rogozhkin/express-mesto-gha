@@ -9,7 +9,7 @@ const getUsers = async (req, res) => {
     const users = await User.find({});
     res.send(users);
   } catch (e) {
-    res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере', ...e });
+    res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
   }
 };
 
@@ -23,9 +23,9 @@ const createNewUser = async (req, res) => {
     return res.send(newUser);
   } catch (e) {
     if (e.name === 'ValidationError') {
-      return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при создании пользователя', ...e });
+      return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при создании пользователя' });
     }
-    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере', ...e });
+    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
   }
 };
 
@@ -41,7 +41,7 @@ const getUserById = async (req, res) => {
     if (e.name === 'CastError') {
       return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при поиске пользователя по ID' });
     }
-    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере', ...e });
+    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
   }
 };
 
@@ -60,9 +60,9 @@ const updateMainUser = async (req, res) => {
     return res.send(user);
   } catch (e) {
     if (e.name === 'ValidationError') {
-      return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при обновлении профиля', ...e });
+      return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при обновлении профиля' });
     }
-    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере', ...e });
+    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
   }
 };
 
@@ -79,9 +79,9 @@ const updateMainUserAvatar = async (req, res) => {
     return res.send(user);
   } catch (e) {
     if (e.name === 'ValidationError') {
-      return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при обновлении аватара', ...e });
+      return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при обновлении аватара' });
     }
-    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере', ...e });
+    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
   }
 };
 
