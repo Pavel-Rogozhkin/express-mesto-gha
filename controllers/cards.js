@@ -17,7 +17,8 @@ const createCard = async (req, res) => {
   try {
     const card = await new Card({
       owner: req.user._id,
-      ...req.body,
+      name: req.body.name,
+      link: req.body.link,
     }).save();
     return res.send(card);
   } catch (e) {
