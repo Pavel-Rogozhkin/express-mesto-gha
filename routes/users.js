@@ -6,7 +6,7 @@ const {
   getUserById,
   updateMainUser,
   updateMainUserAvatar,
-} = require('../controllers/users').default;
+} = require('../controllers/users');
 
 const usersRoutes = express.Router();
 
