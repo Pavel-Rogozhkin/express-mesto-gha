@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
 const DATA_CODE = 400;
@@ -15,10 +16,13 @@ const getUsers = async (req, res) => {
 
 const createNewUser = async (req, res) => {
   try {
+    const hashPassword = await bcrypt.hash(req.body.password, 10);
     const newUser = await new User({
       name: req.body.name,
       about: req.body.about,
       avatar: req.body.avatar,
+      email: req.body.email,
+      password: hashPassword,
     }).save();
     return res.send(newUser);
   } catch (e) {
