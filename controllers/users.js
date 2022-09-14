@@ -1,4 +1,7 @@
+/* eslint-disable import/no-unresolved */
+
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const DATA_CODE = 400;
@@ -18,7 +21,7 @@ const getUsers = async (req, res) => {
 const createNewUser = async (req, res) => {
   if (!req.body.email || !req.body.password) {
     return res.status(AUTH_CODE).send({ message: 'Требуется авторизация' });
-  };
+  }
   try {
     const hashPassword = await bcrypt.hash(req.body.password, 11);
     const newUser = await new User({
@@ -34,7 +37,7 @@ const createNewUser = async (req, res) => {
       return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при создании пользователя' });
     }
     return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
-  };
+  }
 };
 
 const getUserById = async (req, res) => {
@@ -99,7 +102,7 @@ const login = async (req, res, next) => {
     const user = await User.findOne({ email }).select('+password');
     if (!user) {
       return res.status(AUTH_CODE).send({ message: 'Требуется авторизация' });
-    };
+    }
     const isValidUser = await bcrypt.compare(password, user.password);
     if (isValidUser) {
       const token = jwt.sign({ _id: user._id }, 'Enigma');
@@ -108,10 +111,10 @@ const login = async (req, res, next) => {
         httpOnly: true,
       });
       return res.send(user);
-    };
+    }
     return res.status(401).send({ message: 'Требуется авторизация' });
   } catch (err) {
-    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
+    return next();
   }
 };
 

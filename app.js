@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 const express = require('express');
 const mongoose = require('mongoose');
 const console = require('console');
@@ -16,16 +17,16 @@ app.post('/signin', celebrate({
     email: Joi.string().email().required(),
     password: Joi.string().min(8).required(),
   }),
-}), login,);
+}), login);
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    avatar: Joi.string().regex(/^(https?:\/\/)?([\w\.]+)\.([a-z]{2,6}\.?)(\/[\w\.]*)*\/?$/),
+    avatar: Joi.string().regex(/^(https?:\/\/)?([\w\\.]+)\.([a-z]{2,6}\.?)(\/[\w\\.]*)*\/?$/),
     email: Joi.string().email().required(),
     password: Joi.string().min(8).required(),
   }),
-}), createNewUser,); 
+}), createNewUser);
 
 app.use(auth);
 app.use(express.json());
@@ -49,7 +50,7 @@ app.use((err, req, res, next) => {
     .send({
       message: statusCode === 500
         ? 'На сервере произошла ошибка'
-        : message
+        : message,
     });
   next();
 });
@@ -62,6 +63,6 @@ async function server() {
   await app.listen(PORT, () => {
     console.log(`Server starting on port: ${PORT}`);
   });
-};
+}
 
 server();
