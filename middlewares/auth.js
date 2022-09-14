@@ -9,7 +9,7 @@ const auth = async (req, res, next) => {
     return res.status(401).send({ message: 'Требуется авторизация' });
   }
   req.user = payload;
-  next();
+  return next();
 };
 
 module.exports = auth;

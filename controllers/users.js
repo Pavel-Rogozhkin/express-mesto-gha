@@ -16,7 +16,7 @@ const getUsers = async (req, res) => {
 };
 
 const createNewUser = async (req, res) => {
-  if (!email || !password) {
+  if (!req.body.email || !req.body.password) {
     return res.status(AUTH_CODE).send({ message: 'Требуется авторизация' });
   };
   try {
