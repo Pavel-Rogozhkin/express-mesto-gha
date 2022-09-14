@@ -5,6 +5,7 @@ const { usersRoutes } = require('./routes/users');
 const { cardsRoutes } = require('./routes/cards');
 const { celebrate, Joi } = require('celebrate');
 const { createNewUser, login } = require('./controllers/users');
+const { auth } = require('./middlewares/auth');
 
 const { PORT = 3000 } = process.env;
 
@@ -26,13 +27,7 @@ app.post('/signup', celebrate({
   }),
 }), createNewUser,); 
 
-app.use((req, res, next) => {
-  req.user = {
-    _id: '631c536b7c53b56cea88d2d1', // RPA - SWE
-  };
-  next();
-});
-
+app.use(auth);
 app.use(express.json());
 app.use(usersRoutes);
 app.use(cardsRoutes);
@@ -49,6 +44,6 @@ async function server() {
   await app.listen(PORT, () => {
     console.log(`Server starting on port: ${PORT}`);
   });
-}
+};
 
 server();
