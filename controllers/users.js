@@ -89,10 +89,30 @@ const updateMainUserAvatar = async (req, res) => {
   }
 };
 
+const login = async (req, res, next) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email }).select('+password');
+    const isValidUser = await bcrypt.compare(password, user.password);
+    if (isValidUser) {
+      const token = jwt.sign({ _id: user._id }, 'Enigma');
+      res.cookie('jwt', token, {
+        expiresIn: '7d',
+        httpOnly: true,
+      });
+      return res.send(user);
+    };
+    return res.status(401).send({ message: 'Требуется авторизация' });
+  } catch (e) {
+    return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
+  }
+};
+
 module.exports = {
   createNewUser,
   getUsers,
   getUserById,
   updateMainUser,
   updateMainUserAvatar,
+  login,
 };
