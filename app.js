@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const console = require('console');
 const { usersRoutes } = require('./routes/users');
 const { cardsRoutes } = require('./routes/cards');
-const { celebrate, Joi } = require('celebrate');
+const { celebrate, Joi, errors } = require('celebrate');
 const { createNewUser, login } = require('./controllers/users');
 const { auth } = require('./middlewares/auth');
 
@@ -35,6 +35,8 @@ app.use(cardsRoutes);
 app.use((req, res) => {
   res.status(404).send({ message: 'Страница не найдена' });
 });
+
+app.use(errors());
 
 async function server() {
   await mongoose.connect('mongodb://localhost:27017/mestodb', {
