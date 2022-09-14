@@ -18,6 +18,7 @@ app.post('/signin', celebrate({
     password: Joi.string().min(8).required(),
   }),
 }), login);
+
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
@@ -28,14 +29,16 @@ app.post('/signup', celebrate({
   }),
 }), createNewUser);
 
-app.use(auth);
 app.use(express.json());
+app.use(auth);
 app.use(usersRoutes);
 app.use(cardsRoutes);
 
 app.use((req, res, next) => {
   try {
-    return res.status(404).send({ message: 'Страница не найдена' });
+    const error = new Error('Страница не найдена');
+    error.statusCode = 404;
+    return next(error);
   } catch (err) {
     return next();
   }
@@ -56,7 +59,7 @@ app.use((err, req, res, next) => {
 });
 
 async function server() {
-  await mongoose.connect('mongodb://localhost:27017/mestodb', {
+  mongoose.connect('mongodb://localhost:27017/mestodb', {
     useNewUrlParser: true,
     useUnifiedTopology: false,
   });
