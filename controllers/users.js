@@ -108,6 +108,15 @@ const login = async (req, res, next) => {
   }
 };
 
+const getMainUserInfo = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id);
+    return res.send(user);
+  } catch (e) {
+    return next();
+  }
+};
+
 module.exports = {
   createNewUser,
   getUsers,
@@ -115,4 +124,5 @@ module.exports = {
   updateMainUser,
   updateMainUserAvatar,
   login,
+  getMainUserInfo,
 };
