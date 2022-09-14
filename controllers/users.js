@@ -16,7 +16,7 @@ const getUsers = async (req, res) => {
 
 const createNewUser = async (req, res) => {
   try {
-    const hashPassword = await bcrypt.hash(req.body.password, 10);
+    const hashPassword = await bcrypt.hash(req.body.password, 11);
     const newUser = await new User({
       name: req.body.name,
       about: req.body.about,
