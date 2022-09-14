@@ -5,7 +5,7 @@ const auth = async (req, res, next) => {
   const token = req.cookies.jwt;
   try {
     payload = await jwt.verify(token, 'Enigma');
-  } catch (e) {
+  } catch (err) {
     return res.status(401).send({ message: 'Требуется авторизация' });
   }
   req.user = payload;

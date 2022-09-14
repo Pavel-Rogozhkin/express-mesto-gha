@@ -10,7 +10,7 @@ const getUsers = async (req, res) => {
   try {
     const users = await User.find({});
     res.send(users);
-  } catch (e) {
+  } catch (err) {
     res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
   }
 };
@@ -29,8 +29,8 @@ const createNewUser = async (req, res) => {
       password: hashPassword,
     }).save();
     return res.send(newUser);
-  } catch (e) {
-    if (e.name === 'ValidationError') {
+  } catch (err) {
+    if (err.name === 'ValidationError') {
       return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при создании пользователя' });
     }
     return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
@@ -45,8 +45,8 @@ const getUserById = async (req, res) => {
       return res.status(NOTFOUND_CODE).send({ message: 'Пользователь по указанному ID не найден' });
     }
     return res.send(user);
-  } catch (e) {
-    if (e.name === 'CastError') {
+  } catch (err) {
+    if (err.name === 'CastError') {
       return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при поиске пользователя по ID' });
     }
     return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
@@ -66,8 +66,8 @@ const updateMainUser = async (req, res) => {
       return res.status(NOTFOUND_CODE).send({ message: 'Пользователь с указанным ID не найден' });
     }
     return res.send(user);
-  } catch (e) {
-    if (e.name === 'ValidationError') {
+  } catch (err) {
+    if (err.name === 'ValidationError') {
       return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при обновлении профиля' });
     }
     return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
@@ -85,8 +85,8 @@ const updateMainUserAvatar = async (req, res) => {
       return res.status(NOTFOUND_CODE).send({ message: 'Пользователь с указанным ID не найден' });
     }
     return res.send(user);
-  } catch (e) {
-    if (e.name === 'ValidationError') {
+  } catch (err) {
+    if (err.name === 'ValidationError') {
       return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные при обновлении аватара' });
     }
     return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
@@ -110,7 +110,7 @@ const login = async (req, res, next) => {
       return res.send(user);
     };
     return res.status(401).send({ message: 'Требуется авторизация' });
-  } catch (e) {
+  } catch (err) {
     return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
   }
 };
@@ -119,7 +119,7 @@ const getMainUserInfo = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
     return res.send(user);
-  } catch (e) {
+  } catch (err) {
     return next();
   }
 };

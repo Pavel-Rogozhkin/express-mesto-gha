@@ -32,8 +32,12 @@ app.use(express.json());
 app.use(usersRoutes);
 app.use(cardsRoutes);
 
-app.use((req, res) => {
-  res.status(404).send({ message: 'Страница не найдена' });
+app.use((req, res, next) => {
+  try {
+    return res.status(404).send({ message: 'Страница не найдена' });
+  } catch (err) {
+    return next();
+  }
 });
 
 app.use(errors());

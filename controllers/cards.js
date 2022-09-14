@@ -75,8 +75,8 @@ const cardDislikeById = async (req, res) => {
       return res.status(NOTFOUND_CODE).send({ message: 'Карточка с указанным ID не найдена' });
     }
     return res.send(dislike);
-  } catch (e) {
-    if (e.name === 'CastError') {
+  } catch (err) {
+    if (err.name === 'CastError') {
       return res.status(DATA_CODE).send({ message: 'Переданы некорректные данные для постановки/снятии лайка' });
     }
     return res.status(SERVER_CODE).send({ message: 'Возникла ошибка на сервере' });
