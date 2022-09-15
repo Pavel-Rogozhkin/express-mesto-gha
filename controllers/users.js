@@ -122,7 +122,7 @@ const login = async (req, res, next) => {
         expiresIn: '7d',
         httpOnly: true,
       });
-      return res.send(user);
+      return res.send({ data: user.toJSON() });
     }
     return next(new AuthError('Требуется авторизация'));
   } catch (err) {
