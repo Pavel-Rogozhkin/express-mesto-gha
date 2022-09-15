@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unresolved */
 const jwt = require('jsonwebtoken');
+const { AuthError } = require('../errors/auth-err');
 
 const auth = async (req, res, next) => {
   let payload;
@@ -7,7 +8,7 @@ const auth = async (req, res, next) => {
   try {
     payload = await jwt.verify(token, 'Enigma');
   } catch (err) {
-    return res.status(401).send({ message: 'Требуется авторизация' });
+    return next(new AuthError('Требуется авторизация'));
   }
   req.user = payload;
   return next();
