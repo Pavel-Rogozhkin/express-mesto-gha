@@ -33,12 +33,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     select: false,
   },
-}, { versionKey: false });
-
-userSchema.methods.toJSON = function () {
-  const user = this.toObject();
-  delete user.password;
-  return user;
-};
+}, {
+  versionKey: false,
+  toObject: { useProjection: true },
+  toJSON: { useProjection: true },
+});
 
 module.exports = mongoose.model('user', userSchema);
