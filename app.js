@@ -10,6 +10,8 @@ const { auth } = require('./middlewares/auth');
 
 const { PORT = 3000 } = process.env;
 
+const SERVER_CODE = 500;
+
 const app = express();
 
 app.post('/signin', celebrate({
@@ -47,11 +49,11 @@ app.use((req, res, next) => {
 app.use(errors());
 
 app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
+  const { statusCode = SERVER_CODE, message } = err;
   res
     .status(statusCode)
     .send({
-      message: statusCode === 500
+      message: statusCode === SERVER_CODE
         ? 'На сервере произошла ошибка'
         : message,
     });
