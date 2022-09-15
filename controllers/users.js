@@ -22,15 +22,15 @@ const createNewUser = async (req, res, next) => {
     return next(new AuthError('Требуется авторизация'));
   }
   try {
-    const hashPassword = await bcrypt.hash(req.body.password, 11);
-    const newUser = await new User({
+    const hashPassword = await bcrypt.hash(req.body.password, 10);
+    const newUser = await User.create({
       name: req.body.name,
       about: req.body.about,
       avatar: req.body.avatar,
       email: req.body.email,
       password: hashPassword,
-    }).save();
-    return res.send(newUser);
+    });
+    return res.send({ data: newUser });
   } catch (err) {
     if (err.code === 11000) {
       return next(new ConfError('Пользователь с указанным email уже зарегистрирован'));
