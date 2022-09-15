@@ -29,13 +29,13 @@ const createNewUser = async (req, res, next) => {
     return next(new AuthError('Требуется авторизация'));
   }
   try {
-    // const hashPassword = await bcrypt.hash(password, 10);
+    const hashPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
       name,
       about,
       avatar,
       email,
-      password,
+      password: hashPassword,
     });
     return res.send({ data: newUser });
   } catch (err) {
