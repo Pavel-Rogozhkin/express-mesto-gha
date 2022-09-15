@@ -18,16 +18,23 @@ const getUsers = async (req, res, next) => {
 };
 
 const createNewUser = async (req, res, next) => {
+  const {
+    name,
+    about,
+    avatar,
+    email,
+    password,
+  } = req.body;
   if (!req.body.email || !req.body.password) {
     return next(new AuthError('Требуется авторизация'));
   }
   try {
-    const hashPassword = await bcrypt.hash(req.body.password, 10);
+    const hashPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
-      name: req.body.name,
-      about: req.body.about,
-      avatar: req.body.avatar,
-      email: req.body.email,
+      name,
+      about,
+      avatar,
+      email,
       password: hashPassword,
     });
     return res.send({ data: newUser });
