@@ -16,6 +16,7 @@ const { PORT = 3000 } = process.env;
 const SERVER_CODE = 500;
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
