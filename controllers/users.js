@@ -124,9 +124,8 @@ const login = async (req, res, next) => {
 };
 
 const getMainUserInfo = async (req, res, next) => {
-  const userId = req.user._id;
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(req.user._id);
     return res.send(user);
   } catch (err) {
     return next();
