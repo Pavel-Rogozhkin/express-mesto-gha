@@ -8,7 +8,8 @@ const { celebrate, Joi, errors } = require('celebrate');
 const { usersRoutes } = require('./routes/users');
 const { cardsRoutes } = require('./routes/cards');
 const { createNewUser, login } = require('./controllers/users');
-const { auth } = require('./middlewares/auth');
+const auth = require('./middlewares/auth');
+const { NotFoundError } = require('./errors/not-found-err');
 
 const { PORT = 3000 } = process.env;
 
@@ -43,9 +44,7 @@ app.use(cardsRoutes);
 
 app.use((req, res, next) => {
   try {
-    const error = new Error('Страница не найдена');
-    error.statusCode = 404;
-    return next(error);
+    return next(new NotFoundError('Страница не найдена'));
   } catch (err) {
     return next();
   }
