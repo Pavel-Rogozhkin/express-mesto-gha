@@ -7,4 +7,4 @@ class ReqError extends Error {
   }
 }
 
-module.exports = ReqError;
+module.exports = { ReqError };

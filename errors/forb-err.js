@@ -7,4 +7,4 @@ class ForbError extends Error {
   }
 }
 
-module.exports = ForbError;
+module.exports = { ForbError };

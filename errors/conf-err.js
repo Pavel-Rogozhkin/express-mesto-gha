@@ -7,4 +7,4 @@ class ConfError extends Error {
   }
 }
 
-module.exports = ConfError;
+module.exports = { ConfError };
