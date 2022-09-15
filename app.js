@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 const express = require('express');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+// const bodyParser = require('body-parser');
+// const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const console = require('console');
 const { celebrate, Joi, errors } = require('celebrate');
@@ -16,9 +16,9 @@ const { PORT = 3000 } = process.env;
 const SERVER_CODE = 500;
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(cookieParser());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+// app.use(cookieParser());
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
