@@ -2,7 +2,7 @@ const Card = require('../models/card');
 
 const { NotFoundError } = require('../errors/not-found-err');
 const { ReqError } = require('../errors/req-err');
-// const { ForbError } = require('../errors/forb-err');
+const { ForbError } = require('../errors/forb-err');
 
 const getCards = async (req, res, next) => {
   try {
@@ -36,12 +36,12 @@ const deleteCardById = async (req, res, next) => {
     if (!card) {
       return next(new NotFoundError('Карточка с указанным ID не найдена'));
     }
-    // const cardUser = card.owner._id.toString();
-    // if (cardUser === req.user._id) {
-    //   await Card.findByIdAndDelete(cardId);
-    // } else {
-    //   return next(new ForbError('Попытка удалить карточку другого пользователя'));
-    // }
+    const cardUser = card.owner._id.toString();
+    if (cardUser === req.user._id) {
+      await Card.findByIdAndDelete(cardId);
+    } else {
+      return next(new ForbError('Попытка удалить карточку другого пользователя'));
+    }
     return res.send({ message: 'Карточка была удалена' });
   } catch (err) {
     if (err.name === 'CastError') {

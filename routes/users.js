@@ -24,7 +24,16 @@ usersRoutes.get(
   getUserById,
 );
 
-usersRoutes.get('/users/me', getMainUserInfo);
+usersRoutes.get(
+  '/users/me',
+  celebrate({
+    body: Joi.object().keys({
+      name: Joi.string().min(2).max(30),
+      about: Joi.string().min(2).max(30),
+    }),
+  }),
+  getMainUserInfo,
+);
 
 usersRoutes.patch(
   '/users/me',
