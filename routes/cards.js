@@ -28,7 +28,7 @@ cardsRoutes.delete(
   '/cards/:cardId',
   celebrate({
     params: Joi.object().keys({
-      cardId: Joi.string().length(24).alphanum(),
+      cardId: Joi.string().length(24).alphanum().hex(),
     }),
   }),
   deleteCardById,
@@ -38,7 +38,7 @@ cardsRoutes.put(
   '/cards/:cardId/likes',
   celebrate({
     params: Joi.object().keys({
-      cardId: Joi.string().length(24).alphanum(),
+      cardId: Joi.string().length(24).alphanum().hex(),
     }),
   }),
   cardLikeById,
@@ -48,7 +48,7 @@ cardsRoutes.delete(
   '/cards/:cardId/likes',
   celebrate({
     params: Joi.object().keys({
-      cardId: Joi.string().length(24).alphanum(),
+      cardId: Joi.string().length(24).alphanum().hex(),
     }),
   }),
   cardDislikeById,
