@@ -13,7 +13,7 @@ const getUsers = async (req, res, next) => {
     const users = await User.find({});
     return res.send(users);
   } catch (err) {
-    return next();
+    return next(err);
   }
 };
 
@@ -45,7 +45,7 @@ const createNewUser = async (req, res, next) => {
     if (err.name === 'ValidationError') {
       return next(new ReqError('Переданы некорректные данные при создании пользователя'));
     }
-    return next();
+    return next(err);
   }
 };
 
@@ -61,7 +61,7 @@ const getUserById = async (req, res, next) => {
     if (err.name === 'CastError') {
       return next(new ReqError('Переданы некорректные данные при поиске пользователя по ID'));
     }
-    return next();
+    return next(err);
   }
 };
 
@@ -82,7 +82,7 @@ const updateMainUser = async (req, res, next) => {
     if (err.name === 'ValidationError') {
       return next(new ReqError('Переданы некорректные данные при обновлении профиля'));
     }
-    return next();
+    return next(err);
   }
 };
 
@@ -101,7 +101,7 @@ const updateMainUserAvatar = async (req, res, next) => {
     if (err.name === 'ValidationError') {
       return next(new ReqError('Переданы некорректные данные при обновлении аватара'));
     }
-    return next();
+    return next(err);
   }
 };
 
@@ -126,7 +126,7 @@ const login = async (req, res, next) => {
     }
     return next(new AuthError('Требуется авторизация'));
   } catch (err) {
-    return next();
+    return next(err);
   }
 };
 
@@ -135,7 +135,7 @@ const getMainUserInfo = async (req, res, next) => {
     const user = await User.findById(req.user._id);
     return res.send(user);
   } catch (err) {
-    return next();
+    return next(err);
   }
 };
 
