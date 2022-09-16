@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require('mongoose-type-url');
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -9,6 +10,7 @@ const cardSchema = new mongoose.Schema({
   },
   link: {
     type: String,
+    type: mongoose.SchemaTypes.Url,
     required: true,
   },
   owner: {
