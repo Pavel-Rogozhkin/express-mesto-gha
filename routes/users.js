@@ -1,5 +1,6 @@
 const express = require('express');
 const { celebrate, Joi } = require('celebrate');
+const { regexValidUrl } = require('../utils/consts');
 
 const {
   getUsers,
@@ -40,7 +41,7 @@ usersRoutes.patch(
   '/users/me/avatar',
   celebrate({
     body: Joi.object().keys({
-      avatar: Joi.string().regex(/^(https?:\/\/)?([\w\\.]+)\.([a-z]{2,6}\.?)(\/[\w\\.]*)*\/?$/),
+      avatar: Joi.string().regex(regexValidUrl),
     }),
   }),
   updateMainUserAvatar,
