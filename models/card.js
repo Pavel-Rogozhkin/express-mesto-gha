@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-require('mongoose-type-url');
+const { regexValidUrl } = require('../utils/consts');
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -10,7 +10,10 @@ const cardSchema = new mongoose.Schema({
   },
   link: {
     type: String,
-    type: mongoose.SchemaTypes.Url,
+    validate: {
+      validator: (v) => regexValidUrl.test(v),
+      message: 'Поле "link" должно быть валидным url-адресом.',
+    },
     required: true,
   },
   owner: {
