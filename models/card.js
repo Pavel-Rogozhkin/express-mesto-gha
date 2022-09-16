@@ -12,7 +12,7 @@ const cardSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator: (v) => regexValidUrl.test(v),
-      message: 'Поле "link" должно быть валидным url-адресом.',
+      message: 'Поле "link" должно быть валидным url-адресом',
     },
     required: true,
   },
