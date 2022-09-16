@@ -9,7 +9,7 @@ const getCards = async (req, res, next) => {
     const cards = await Card.find({});
     return res.send(cards);
   } catch (err) {
-    return next();
+    return next(err);
   }
 };
 
@@ -25,7 +25,7 @@ const createCard = async (req, res, next) => {
     if (err.name === 'ValidationError') {
       return next(new ReqError('Переданы некорректные данные при создании карточки'));
     }
-    return next();
+    return next(err);
   }
 };
 
@@ -47,7 +47,7 @@ const deleteCardById = async (req, res, next) => {
     if (err.name === 'CastError') {
       return next(new ReqError('Переданы некорректные данные при удалении карточки'));
     }
-    return next();
+    return next(err);
   }
 };
 
@@ -66,7 +66,7 @@ const cardLikeById = async (req, res, next) => {
     if (err.name === 'CastError') {
       return next(new ReqError('Переданы некорректные данные для постановки/снятии лайка'));
     }
-    return next();
+    return next(err);
   }
 };
 
@@ -85,7 +85,7 @@ const cardDislikeById = async (req, res, next) => {
     if (err.name === 'CastError') {
       return next(new ReqError('Переданы некорректные данные для постановки/снятии лайка'));
     }
-    return next();
+    return next(err);
   }
 };
 
