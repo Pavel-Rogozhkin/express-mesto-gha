@@ -1,3 +1,3 @@
-const regexValidUrl = /(https?:\/\/)?(w*)?([\da-z.-]*)\.([\da-z.-]*)\.([\da-z\-._~:/?#[\]@!$&'()*+,;=])*#*?$/;
+const regexValidUrl = /^(https?\/{2})?([w]{3}\.)?([\w-.~:/?#[\]@!$&')(*+,;=]+\.)+[\w]{2,8}(\/([\w-.~:/?#[\]@!$&')(*+,;=])*)?#?$/;
 
 module.exports = { regexValidUrl };
