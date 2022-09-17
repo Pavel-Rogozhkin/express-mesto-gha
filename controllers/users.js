@@ -111,7 +111,7 @@ const login = async (req, res, next) => {
     return next(new AuthError('Требуется авторизация'));
   }
   try {
-    const user = await User.findOne({ email }).select('+password').orFail();
+    const user = await User.findOne({ email }).select('+password');
     if (!user) {
       return next(new AuthError('Требуется авторизация'));
     }
