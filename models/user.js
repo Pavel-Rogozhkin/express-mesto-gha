@@ -21,8 +21,7 @@ const userSchema = new mongoose.Schema({
       validator: (v) => regexValidUrl.test(v),
       message: 'Поле "avatar" должно быть валидным url-адресом',
     },
-    // default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
-    default: 'https://ya@.ru/av.bmp',
+    default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
   },
   email: {
     type: String,
