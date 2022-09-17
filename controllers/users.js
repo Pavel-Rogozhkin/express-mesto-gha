@@ -39,6 +39,7 @@ const createNewUser = async (req, res, next) => {
     });
     return res.send({ data: newUser });
   } catch (err) {
+    console.log(err);
     if (err.code === 11000) {
       return next(new ConfError('Пользователь с указанным email уже зарегистрирован'));
     }
