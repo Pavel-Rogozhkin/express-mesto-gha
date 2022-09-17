@@ -39,7 +39,6 @@ const createNewUser = async (req, res, next) => {
     });
     return res.send({ data: newUser });
   } catch (err) {
-    console.log(err);
     if (err.code === 11000) {
       return next(new ConfError('Пользователь с указанным email уже зарегистрирован'));
     }
@@ -112,7 +111,7 @@ const login = async (req, res, next) => {
     return next(new AuthError('Требуется авторизация'));
   }
   try {
-    const user = await User.findOne({ email }).select('+password');
+    const user = await User.findOne({ email }).select('+password').orFail();
     if (!user) {
       return next(new AuthError('Требуется авторизация'));
     }
