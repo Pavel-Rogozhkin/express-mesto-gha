@@ -41,7 +41,7 @@ usersRoutes.patch(
   '/users/me/avatar',
   celebrate({
     body: Joi.object().keys({
-      avatar: Joi.string().regex(regexValidUrl),
+      avatar: Joi.string().pattern(regexValidUrl),
     }),
   }),
   updateMainUserAvatar,
