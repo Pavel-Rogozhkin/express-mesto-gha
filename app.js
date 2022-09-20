@@ -10,6 +10,7 @@ const { createNewUser, login } = require('./controllers/users');
 const { auth } = require('./middlewares/auth');
 const { NotFoundError } = require('./errors/not-found-err');
 const { regexValidUrl } = require('./utils/consts');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 
@@ -23,6 +24,8 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+app.use(requestLogger);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -53,6 +56,8 @@ app.use((req, res, next) => {
     return next();
   }
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 
